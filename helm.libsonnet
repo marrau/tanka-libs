@@ -12,7 +12,7 @@ function(config) (
     local helm = tanka.helm.new(conf.chart_dir);
 
     helm.template(conf.name, conf.chart, {
-        namespace: config.namespace,
+        namespace: conf.namespace,
         values: conf.values,
         includeCrds: true,
         apiVersions:  ["monitoring.coreos.com/v1"],
