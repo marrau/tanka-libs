@@ -5,12 +5,14 @@ function(config) (
         chart_dir: std.thisFile + "/../../../",
         name: error "Name must be set",
         chart: error "Chart must be set",
+        namespace: "default",
         values: {},
     } + config;
 
     local helm = tanka.helm.new(conf.chart_dir);
 
     helm.template(conf.name, conf.chart, {
+        namespace: config.namespace,
         values: conf.values,
         includeCrds: true,
         apiVersions:  ["monitoring.coreos.com/v1"],
