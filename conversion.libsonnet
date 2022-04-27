@@ -23,4 +23,13 @@
             for cert in this.certificates
         ],
     },
+    imageDigest(image): {
+        local digest = std.native("skopeoInspect")(std.format("%s:%s", [image.repository, image.tag])).Digest,
+        local tagSplit = std.split(digest, ":"),
+
+        image+: {
+            repository: std.format("%s@sha256", super.repository),
+            tag: tagSplit[1],
+        }
+    },
 }
