@@ -1,5 +1,7 @@
 
 {
+    local conv = self,
+
     ingressConfig: {
         local this = self,
         certificates:: [],
@@ -32,4 +34,11 @@
             tag: tagSplit[1],
         }
     },
+    imageDigestReplace(containers): [
+        container {
+            local inspect = std.native("skopeoInspect")(container.image),
+            image: "%s@%s" % [inspect.Name, inspect.Digest]
+        }
+        for container in containers
+    ],
 }
